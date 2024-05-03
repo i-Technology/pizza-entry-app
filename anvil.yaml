@@ -9,4 +9,5 @@ name: Pizza Entry App
 runtime_options: {version: 2, client_version: '3', server_version: python3-full, server_spec: null}
 metadata: {title: Pizza Entry}
 startup_form: Form1
+db_schema: {}
 renamed: true
