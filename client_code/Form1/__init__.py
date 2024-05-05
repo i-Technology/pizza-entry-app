@@ -3,6 +3,7 @@ from anvil import *
 
 
 class Form1(Form1Template):
+  
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
@@ -21,10 +22,10 @@ class Form1(Form1Template):
   def calculate_price (self, size_price, crust_price, toppings, top_price):
     
     price = size_price + crust_price + len(toppings)*top_price
-    price = 12.34
     print (price)
     
     self.price_tb.text = price
+    
   
   
   def account_entered(self, **event_args):
@@ -37,17 +38,17 @@ class Form1(Form1Template):
 #     print(self.item['size'])
 #     pass
 
-  def top1_clicked(self, **event_args):
-    """This method is called when this radio button is selected"""
-    print(self.top1.selected)
+#   def top1_clicked(self, **event_args):
+#     """This method is called when this radio button is selected"""
+#     print(self.top1.selected)
     
-    if self.top1.selected == True:
-      self.top1.selected = False
-    else:
-      self.top1.selected= True
+#     if self.top1.selected == True:
+#       self.top1.selected = False
+#     else:
+#       self.top1.selected= True
       
-    print(self.top1.selected)
-    pass
+#     print(self.top1.selected)
+#     pass
 
   def size_change(self, **event_args):
     """This method is called when a Size is selected"""
