@@ -1,20 +1,20 @@
 from ._anvil_designer import Form1Template
 from anvil import *
 
-global size, size_price, crust, crust_price, toppings, top_price
+#global size, size_price, crust, crust_price, toppings, top_price
 
 class Form1(Form1Template):
-  
-  def __init__(self, **properties):
-    # Set Form properties and Data Bindings.
+  def __init__(self, **properties): 
+  # Set Form properties and Data Bindings.
     self.init_components(**properties)
-    size = 'Small'
-    size_price = 10.0
+    self.pizza_size = 'Small'
+    self.pizza_size_price = 10.0
     self.item['crust'] = 'Thin'
-    crust = 'Thin'
-    crust_price = 1.0
-    toppings = []
-    top_price = 0.0
+    self.pizza_crust = 'Thin'
+    self.crust_price = 1.0
+    self.toppings = 0 # Integer # of toppings selected now
+    self.top_price = 0.1
+    self.calculate_price()
     
     #self.calculate_price(size_price, crust_price, toppings, top_price)
 
@@ -22,50 +22,45 @@ class Form1(Form1Template):
     
   #def calculate_price (self, size_price, crust_price, toppings, top_price):
   def calculate_price(self):
-    global size_price
-    price = size_price + crust_price + len(toppings)*top_price
-    print (price)
+    self.toppings = 0
+    if self.pepperoni_cb.checked:
+      self.toppings += 1
+    if self.olives_cb.checked:
+      self.toppings += 1
+    if self.mushrooms_cb.checked:
+      self.toppings += 1
+  
     
+    print ('CP1',self.pizza_size_price,self.crust_price, self.toppings)
+    print ('CP2', self.pizza_size, self.pizza_crust, self.toppings)
+    price = (self.pizza_size_price + self.crust_price + self.toppings * self.top_price)
+    print('CP3', price)
     self.price_tb.text = price
     
-  
   
   def account_entered(self, **event_args):
     """This method is called when the user presses Enter in this text box"""
     print(self.item['account'])
     pass
 
-#   def text_box_3_show(self, **event_args):
-#     """This method is called when the TextBox is shown on the screen"""
-#     print(self.item['size'])
-#     pass
-
-#   def top1_clicked(self, **event_args):
-#     """This method is called when this radio button is selected"""
-#     print(self.top1.selected)
-    
-#     if self.top1.selected == True:
-#       self.top1.selected = False
-#     else:
-#       self.top1.selected= True
-      
-#     print(self.top1.selected)
-#     pass
 
   def size_change(self, **event_args):
-    """This method is called when a Size is selected"""
+    """This method is called when a SIZE is selected"""
     print(self.item['size'])
     if self.item['size'] == 'Small':
-      size_price = 10.0
+      self.pizza_size = 'Small'
+      self.pizza_size_price = 10.0
     if self.item['size'] == 'Medium':
-      size_price = 15.0
+      self.pizza_size = 'Medium'
+      self.pizza_size_price = 15.0
     if self.item['size'] == 'Large':
-      size_price = 20.0
+      self.pizza_size = 'Large'
+      self.pizza_size_price = 20.0
     
-    self.item['price_show'] = size_price
+    self.item['price_show'] = self.pizza_size_price
     
-    print (type(size_price),size_price)
-    self.price_tb.text = size_price
+    print (type(self.pizza_size_price),self.pizza_size_price)
+    self.price_tb.text = self.pizza_size_price
     pass
 
   def size_show(self, **event_args):
@@ -89,10 +84,6 @@ class Form1(Form1Template):
     print(self.top2.selected)
     pass
 
-  def pepperoni_cb_change(self, **event_args):
-    """This method is called when this checkbox is checked or unchecked"""
-    print(self.pepperoni_cb.checked)
-    pass
 
   def submit_click(self, **event_args):
     """This method is called when the button is clicked"""
@@ -102,7 +93,7 @@ class Form1(Form1Template):
 
   def crust_change(self, **event_args):
     """This method is called when a CRUST item is selected"""
-    global crust_price, size_price
+    #global crust_price, size_price
     crust = self.item['crust']
     print(crust)
     if self.item['crust'] == 'Thin':
@@ -118,7 +109,8 @@ class Form1(Form1Template):
 
   def price_tb_show(self, **event_args):
     """This method is called when the TextBox is shown on the screen"""
-    self.price_tb.text = '987.56'
+    self.calculate_price()
+    #self.price_tb.text = '0.00'
     
     pass
 
@@ -131,6 +123,40 @@ class Form1(Form1Template):
   def price_tb_pressed_enter(self, **event_args):
     """This method is called when the user presses Enter in this text box"""
     pass
+  
+  def pepperoni_cb_change(self, **event_args):
+    """This method is called when this checkbox is checked or unchecked"""
+    print(self.pepperoni_cb.checked)
+    self.calculate_price()
+    pass
+
+  def olives_cb_change(self, **event_args):
+    """This method is called when this checkbox is checked or unchecked"""
+    print(self.olives_cb.checked)
+    self.calculate_price()
+    pass
+
+  def mushrooms_cb_change(self, **event_args):
+    """This method is called when this checkbox is checked or unchecked"""
+    print(self.mushrooms_cb.checked)
+    self.calculate_price()
+    pass
+
+  def price_tb_lost_focus(self, **event_args):
+    """This method is called when the TextBox loses focus"""
+
+    if self.price_tb.text:
+      try:
+        # Convert text to a float, format as a dollar amount
+        value = float(self.price_tb.replace('$', '').replace(',', ''))
+        self.price_tb.text = '${:,.2f}'.format(value)
+      except ValueError:
+        # Handle the case where the text is not a valid number
+        self.price_tb.text = 'Invalid input'
+    pass
+
+
+
 
 
 
