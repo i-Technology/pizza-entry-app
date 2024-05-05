@@ -1,6 +1,7 @@
 from ._anvil_designer import Form1Template
 from anvil import *
 
+global size, size_price, crust, crust_price, toppings, top_price
 
 class Form1(Form1Template):
   
@@ -15,12 +16,13 @@ class Form1(Form1Template):
     toppings = []
     top_price = 0.0
     
-    self.calculate_price(size_price, crust_price, toppings, top_price)
+    #self.calculate_price(size_price, crust_price, toppings, top_price)
 
     # Any code you write here will run before the form opens.
     
-  def calculate_price (self, size_price, crust_price, toppings, top_price):
-    
+  #def calculate_price (self, size_price, crust_price, toppings, top_price):
+  def calculate_price(self):
+    global size_price
     price = size_price + crust_price + len(toppings)*top_price
     print (price)
     
@@ -99,7 +101,8 @@ class Form1(Form1Template):
     pass
 
   def crust_change(self, **event_args):
-    """This method is called when an item is selected"""
+    """This method is called when a CRUST item is selected"""
+    global crust_price, size_price
     crust = self.item['crust']
     print(crust)
     if self.item['crust'] == 'Thin':
@@ -109,6 +112,8 @@ class Form1(Form1Template):
     if self.item['crust'] == 'Thick':
       crust_price = 2.0
     print(crust_price)
+    #self.calculate_price(size_price, crust_price, toppings, top_price)
+    self.calculate_price()
     pass
 
   def price_tb_show(self, **event_args):
