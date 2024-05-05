@@ -7,10 +7,25 @@ class Form1(Form1Template):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     size = 'Small'
+    size_price = 10.0
+    self.item['crust'] = 'Thin'
+    crust = 'Thin'
+    crust_price = 1.0
+    toppings = []
+    top_price = 0.0
+    
+    self.calculate_price(size_price, crust_price, toppings, top_price)
 
     # Any code you write here will run before the form opens.
     
-  def calculate
+  def calculate_price (self, size_price, crust_price, toppings, top_price):
+    
+    price = size_price + crust_price + len(toppings)*top_price
+    price = 12.34
+    print (price)
+    
+    self.price_tb.text = price
+  
   
   def account_entered(self, **event_args):
     """This method is called when the user presses Enter in this text box"""
@@ -35,9 +50,19 @@ class Form1(Form1Template):
     pass
 
   def size_change(self, **event_args):
-    """This method is called when an item is selected"""
+    """This method is called when a Size is selected"""
     print(self.item['size'])
+    if self.item['size'] == 'Small':
+      size_price = 10.0
+    if self.item['size'] == 'Medium':
+      size_price = 15.0
+    if self.item['size'] == 'Large':
+      size_price = 20.0
     
+    self.item['price_show'] = size_price
+    
+    print (type(size_price),size_price)
+    self.price_tb.text = size_price
     pass
 
   def size_show(self, **event_args):
@@ -71,6 +96,39 @@ class Form1(Form1Template):
     # Publish to RabbitMQ
     
     pass
+
+  def crust_change(self, **event_args):
+    """This method is called when an item is selected"""
+    crust = self.item['crust']
+    print(crust)
+    if self.item['crust'] == 'Thin':
+      crust_price = 1.0
+    if self.item['crust'] == 'Crispy':
+      crust_price = 1.50
+    if self.item['crust'] == 'Thick':
+      crust_price = 2.0
+    print(crust_price)
+    pass
+
+  def price_tb_show(self, **event_args):
+    """This method is called when the TextBox is shown on the screen"""
+    self.price_tb.text = '987.56'
+    
+    pass
+
+  def crust_show(self, **event_args):
+    """This method is called when the DropDown is shown on the screen"""
+    self.crust.selected_value = "Thin"
+    crust = self.item['crust']
+    pass
+
+  def price_tb_pressed_enter(self, **event_args):
+    """This method is called when the user presses Enter in this text box"""
+    pass
+
+
+
+
 
 
 
