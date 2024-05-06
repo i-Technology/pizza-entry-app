@@ -147,18 +147,7 @@ class Form1(Form1Template):
 
   def price_tb_show(self, **event_args):
     """This method is called when the TextBox is shown on the screen"""
-    self.calculate_price()
-    
-#     if self.price_tb.text:
-#       try:
-#         # Convert text to a float, format as a dollar amount
-#         value = float(self.price_tb.replace('$', '').replace(',', ''))
-#         self.price_tb.text = '${:,.2f}'.format(value)
-#       except ValueError:
-#         # Handle the case where the text is not a valid number
-#         self.price_tb.text = 'Invalid input'
-    #self.price_tb.text = '0.00'
-    
+    self.calculate_price()    
     pass
 
   def crust_show(self, **event_args):
