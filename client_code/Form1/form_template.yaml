@@ -133,6 +133,11 @@ components:
     event_bindings: {show: price_tb_show, pressed_enter: price_tb_pressed_enter, lost_focus: price_tb_lost_focus}
     data_bindings:
     - {property: text, code: 'self.item[''price_show'']', writeback: true}
+  - type: TextBox
+    properties: {}
+    name: pizza_list
+    layout_properties: {grid_position: 'ZUPQXR,ZLRFQV'}
+    event_bindings: {show: pizza_list_show}
   - type: ColumnPanel
     properties: {role: outlined-card, col_widths: '{}'}
     name: outlined_card_3

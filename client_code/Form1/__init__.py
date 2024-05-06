@@ -1,7 +1,6 @@
 from ._anvil_designer import Form1Template
 from anvil import *
 
-#global size, size_price, crust, crust_price, toppings, top_price
 
 class Form1(Form1Template):
   def __init__(self, **properties): 
@@ -15,8 +14,8 @@ class Form1(Form1Template):
     self.toppings = 0 # Integer # of toppings selected now
     self.top_price = 0.1
     self.calculate_price()
+    self.pizza_list_show()
     
-    #self.calculate_price(size_price, crust_price, toppings, top_price)
 
     # Any code you write here will run before the form opens.
     
@@ -35,7 +34,9 @@ class Form1(Form1Template):
     print ('CP2', self.pizza_size, self.pizza_crust, self.toppings)
     price = (self.pizza_size_price + self.crust_price + self.toppings * self.top_price)
     print('CP3', price)
-    self.price_tb.text = price
+    
+    self.price_tb.text ='${:,.2f}'.format(price)
+    self.pizza_list_show()
     
   
   def account_entered(self, **event_args):
@@ -59,12 +60,16 @@ class Form1(Form1Template):
     
     self.item['price_show'] = self.pizza_size_price
     
+    
     print (type(self.pizza_size_price),self.pizza_size_price)
-    self.price_tb.text = self.pizza_size_price
+    
+    self.calculate_price()
+    #self.price_tb.text = 'L64',self.pizza_size_price
+    self.pizza_list_show()
     pass
 
   def size_show(self, **event_args):
-    """This method is called when the DropDown is shown on the screen"""
+    """This method is called when the SIZE DropDown is shown on the screen"""
     self.size.selected_value = "Small"
     pass
 
@@ -105,11 +110,22 @@ class Form1(Form1Template):
     print(crust_price)
     #self.calculate_price(size_price, crust_price, toppings, top_price)
     self.calculate_price()
+    self.pizza_crust = crust
+    self.pizza_list_show()
     pass
 
   def price_tb_show(self, **event_args):
     """This method is called when the TextBox is shown on the screen"""
     self.calculate_price()
+    
+#     if self.price_tb.text:
+#       try:
+#         # Convert text to a float, format as a dollar amount
+#         value = float(self.price_tb.replace('$', '').replace(',', ''))
+#         self.price_tb.text = '${:,.2f}'.format(value)
+#       except ValueError:
+#         # Handle the case where the text is not a valid number
+#         self.price_tb.text = 'Invalid input'
     #self.price_tb.text = '0.00'
     
     pass
@@ -154,6 +170,23 @@ class Form1(Form1Template):
         # Handle the case where the text is not a valid number
         self.price_tb.text = 'Invalid input'
     pass
+
+  def pizza_list_show(self, **event_args):
+    """This method is called when the pizza_list TextBox is shown on the screen"""
+    self.top_list = ''
+    if self.pepperoni_cb.checked:
+      self.top_list += 'Pepperoni, '
+    if self.olives_cb.checked:
+      self.top_list += 'Olives, '
+    if self.mushrooms_cb.checked:
+      self.top_list += 'Mushrooms, '
+    # Remove the last comma and space from the top_list if it's not empty
+    if self.top_list:
+        self.top_list = self.top_list[:-2]
+    self.pizza_list.text =   self.pizza_size, self.pizza_crust, self.top_list
+   
+    pass
+
 
 
 
