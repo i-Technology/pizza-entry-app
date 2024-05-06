@@ -116,13 +116,6 @@ components:
       name: mushrooms_cb
       layout_properties: {grid_position: 'TCUKDF,CHAFDE'}
       event_bindings: {change: mushrooms_cb_change}
-  - type: Label
-    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
-      visible: true, text: 'Price: $', font_size: null, font: '', spacing_above: small,
-      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
-      underline: false, icon: ''}
-    name: label_4
-    layout_properties: {grid_position: 'ZXBORZ,RWFTTJ'}
   - type: TextBox
     properties: {role: outlined}
     name: price_tb
