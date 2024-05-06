@@ -116,9 +116,13 @@ components:
       name: mushrooms_cb
       layout_properties: {grid_position: 'TCUKDF,CHAFDE'}
       event_bindings: {change: mushrooms_cb_change}
+  - type: Label
+    properties: {}
+    name: price_tb
+    layout_properties: {grid_position: 'ZXBORZ,SPENPV'}
   - type: TextBox
     properties: {role: outlined}
-    name: price_tb
+    name: price_tb2
     layout_properties: {grid_position: 'ZXBORZ,JXHOZZ'}
   - type: TextBox
     properties: {}

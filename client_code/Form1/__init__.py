@@ -13,9 +13,35 @@ class Form1(Form1Template):
     self.crust_price = 1.0
     self.toppings = 0 # Integer # of toppings selected now
     self.top_price = 0.1
+    
+   # Additional UI setup
+    self.setup_price_tb()   
+    
     self.calculate_price()
     self.pizza_list_show()
-    
+
+      # Use Label instead of  etxt box, to get rich formatting
+  def setup_price_tb(self):
+      # Assuming 'price_tb' is your Label component
+      self.price_tb.text = "Price: $10"
+      self.price_tb.role = 'input-lg'
+      self.price_tb.foreground = '#FF5733'  # Set font color
+      self.price_tb.font = 'Arial'  # Set font family
+      self.price_tb.bold = True  # Make text bold
+# Set the font size via the style property
+      self.price_tb.style = {'font-size': '24pt', 'font-weight': 'bold', 'color': '#FF5733', 'font-family': 'Arial'}
+
+
+  def setup_price_tb1(self):
+    # Assuming 'price_tb' is your TextBox component and it is correctly initialized
+    # Set the font size
+    self.price_tb.role = 'input-lg'  # Predefined roles like 'input-lg', 'input-sm'
+
+# Set the font color
+    self.price_tb.foreground = '#FF5733'  # Any CSS color value
+# Set the font style via custom CSS
+    self.price_tb.style = {'font-weight': 'bold', 'font-family': 'Arial'}
+
 
     # Any code you write here will run before the form opens.
     
