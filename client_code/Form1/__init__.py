@@ -1,5 +1,6 @@
 from ._anvil_designer import Form1Template
 from anvil import *
+from anvil.tables import app_tables
 
 
 class Form1(Form1Template):
@@ -13,14 +14,21 @@ class Form1(Form1Template):
     self.crust_price = 1.0
     self.toppings = 0 # Integer # of toppings selected now
     self.top_price = 0.1
+    self.price = 0.00
     #self.item['account'] = 0
+    
     self.account = 0  # Initialize the account variable
+    self.repeating_panel_1.items = app_tables.pizzas.search()
     
    # Additional UI setup
     self.setup_price_tb()   
     
     self.calculate_price()
     self.pizza_list_show()
+    
+
+
+
 
       # Use Label instead of  etxt box, to get rich formatting
   def setup_price_tb(self):
@@ -60,10 +68,10 @@ class Form1(Form1Template):
     
     print ('CP1',self.pizza_size_price,self.crust_price, self.toppings)
     print ('CP2', self.pizza_size, self.pizza_crust, self.toppings)
-    price = (self.pizza_size_price + self.crust_price + self.toppings * self.top_price)
-    print('CP3', price)
+    self.price = (self.pizza_size_price + self.crust_price + self.toppings * self.top_price)
+    print('CP3', self.price)
     
-    self.price_tb.text ='${:,.2f}'.format(price)
+    self.price_tb.text ='${:,.2f}'.format(self.price)
     self.pizza_list_show()
     
   
@@ -123,7 +131,12 @@ class Form1(Form1Template):
 
   def submit_click(self, **event_args):
     """This method is called when the button is clicked"""
-    # Publish to RabbitMQ
+    
+    new_row = app_tables.pizzas.add_row(size = self.pizza_size, crust = self.pizza_crust, toppings =self.top_list, price=self.price)
+    l = list(self.repeating_panel_1.items) + [new_row]
+    self.repeating_panel_1.items = l
+  
+  # Publish to RabbitMQ
     
     pass
 

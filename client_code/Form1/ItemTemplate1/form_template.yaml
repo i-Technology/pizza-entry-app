@@ -1,0 +1,18 @@
+container:
+  type: ColumnPanel
+  properties: {col_widths: '{}'}
+components:
+- type: Label
+  properties: {}
+  name: label_1
+  layout_properties: {grid_position: 'XFJLLM,GZRWVE'}
+  data_bindings:
+  - {property: text, code: 'self.item[''size'']'}
+- type: Label
+  properties: {}
+  name: label_2
+  layout_properties: {grid_position: 'FOADOM,SSXADN'}
+  data_bindings:
+  - {property: text, code: 'self.item[''crust'']'}
+is_package: true
+item_type: {table_id: 742021}

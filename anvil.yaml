@@ -3,12 +3,29 @@ dependencies: []
 services:
 - source: /runtime/services/tables.yml
   client_config: {}
-  server_config: {}
+  server_config: {auto_create_missing_columns: true}
 package_name: Pizza_Entry_App
 allow_embedding: false
 name: Pizza Entry App
 runtime_options: {version: 2, client_version: '3', server_version: python3-full, server_spec: null}
 metadata: {title: Pizza Entry}
 startup_form: Form1
-db_schema: {}
+db_schema:
+  pizzas:
+    title: Pizzas
+    client: full
+    server: full
+    columns:
+    - name: price
+      admin_ui: {width: 200}
+      type: number
+    - name: size
+      admin_ui: {width: 200}
+      type: string
+    - name: crust
+      admin_ui: {width: 200}
+      type: string
+    - name: toppings
+      admin_ui: {width: 200}
+      type: string
 renamed: true
