@@ -2,8 +2,8 @@ from ._anvil_designer import Form1Template
 from anvil import *
 import anvil.server
 from anvil.tables import app_tables
-from EventzAnvilAPI import *
-import ServerModule1
+# from EventzAnvilAPI import *
+# import ServerModule1
 
 
 
