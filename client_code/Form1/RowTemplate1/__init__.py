@@ -1,5 +1,6 @@
 from ._anvil_designer import RowTemplate1Template
 from anvil import *
+import anvil.server
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
@@ -16,6 +17,12 @@ class RowTemplate1(RowTemplate1Template):
     self.item.delete()
     self.remove_from_parent()
     print('Line 18 delete')
+    pass
+  
+  def form_refreshing_data_bindings(self, **event_args):
+    
+    """This method is called when refreshing_data_bindings is called"""
+  
     pass
 
 # class RowTemplate1(RowTemplate1Template):
@@ -39,7 +46,7 @@ class RowTemplate1(RowTemplate1Template):
 
 #     # Any code you write here will run before the form opens.
 
-#     def form_refreshing_data_bindings(self, **event_args):
-#       """This method is called when refreshing_data_bindings is called"""
+    def form_refreshing_data_bindings(self, **event_args):
+      """This method is called when refreshing_data_bindings is called"""
 #     pass
 
