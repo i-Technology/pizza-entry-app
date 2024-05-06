@@ -13,6 +13,8 @@ class Form1(Form1Template):
     self.crust_price = 1.0
     self.toppings = 0 # Integer # of toppings selected now
     self.top_price = 0.1
+    #self.item['account'] = 0
+    self.account = 0  # Initialize the account variable
     
    # Additional UI setup
     self.setup_price_tb()   
@@ -67,7 +69,10 @@ class Form1(Form1Template):
   
   def account_entered(self, **event_args):
     """This method is called when the user presses Enter in this text box"""
-    print(self.item['account'])
+    self.account = self.item['account']  # 
+    #print(self.item['account'])
+    print(self.account)
+    self.pizza_list_show()
     pass
 
 
@@ -209,7 +214,7 @@ class Form1(Form1Template):
     # Remove the last comma and space from the top_list if it's not empty
     if self.top_list:
         self.top_list = self.top_list[:-2]
-    self.pizza_list.text =   self.pizza_size, self.pizza_crust, self.top_list
+    self.pizza_list.text =  self.account, self.pizza_size, self.pizza_crust, self.top_list
    
     pass
 
