@@ -1,5 +1,6 @@
 from ._anvil_designer import OrderFormTemplate
 from anvil import *
+import anvil.users
 import anvil.server
 from anvil.tables import app_tables
 # from EventzAnvilAPI import *
@@ -11,6 +12,7 @@ class OrderForm(OrderFormTemplate):
   def __init__(self, **properties): 
   # Set Form properties and Data Bindings.
     self.init_components(**properties)
+    anvil.users.login_with_form()
     self.pizza_size = 'Small'
     self.pizza_size_price = 10.0
     self.item['crust'] = 'Thin'
