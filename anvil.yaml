@@ -21,9 +21,6 @@ db_schema:
     client: full
     server: full
     columns:
-    - name: price
-      admin_ui: {width: 200}
-      type: number
     - name: size
       admin_ui: {width: 200}
       type: string
@@ -33,21 +30,24 @@ db_schema:
     - name: toppings
       admin_ui: {width: 200}
       type: string
+    - name: price
+      admin_ui: {width: 200}
+      type: number
   ovenpizzas:
+    title: OvenPizzas
     client: none
     server: full
     columns:
     - name: Number
-      admin_ui: {width: 200, order: 0}
+      admin_ui: {width: 200}
       type: number
     - name: Size
-      admin_ui: {width: 200, order: 1}
+      admin_ui: {width: 200}
       type: string
     - name: Crust
-      admin_ui: {width: 200, order: 2}
+      admin_ui: {width: 200}
       type: string
     - name: Toppings
-      admin_ui: {width: 200, order: 3}
-      type: simpleObject
-    title: OvenPizzas
+      admin_ui: {width: 200}
+      type: string
 renamed: true
