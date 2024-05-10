@@ -1,4 +1,4 @@
-from ._anvil_designer import Form1Template
+from ._anvil_designer import OrderFormTemplate
 from anvil import *
 import anvil.server
 from anvil.tables import app_tables
@@ -7,7 +7,7 @@ from anvil.tables import app_tables
 
 
 
-class Form1(Form1Template):
+class OrderForm(OrderFormTemplate):
   def __init__(self, **properties): 
   # Set Form properties and Data Bindings.
     self.init_components(**properties)

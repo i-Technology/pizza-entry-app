@@ -4,6 +4,7 @@ services:
 - source: /runtime/services/tables.yml
   client_config: {}
   server_config: {auto_create_missing_columns: true}
+startup: {type: form, module: OrderForm}
 package_name: Pizza_Entry_App
 allow_embedding: false
 name: Pizza Entry App
@@ -13,7 +14,7 @@ runtime_options:
   server_version: python3-full
   server_spec: {base: python310-standard}
 metadata: {title: Pizza Entry}
-startup_form: Form1
+startup_form: null
 db_schema:
   pizzas:
     title: Pizzas
@@ -32,4 +33,21 @@ db_schema:
     - name: toppings
       admin_ui: {width: 200}
       type: string
+  ovenpizzas:
+    client: none
+    server: full
+    columns:
+    - name: Number
+      admin_ui: {width: 200, order: 0}
+      type: number
+    - name: Size
+      admin_ui: {width: 200, order: 1}
+      type: string
+    - name: Crust
+      admin_ui: {width: 200, order: 2}
+      type: string
+    - name: Toppings
+      admin_ui: {width: 200, order: 3}
+      type: simpleObject
+    title: OvenPizzas
 renamed: true
