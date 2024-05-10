@@ -37,4 +37,8 @@ components:
   properties: {item_template: Oven.ItemTemplate2}
   name: repeating_panel_1
   layout_properties: {grid_position: 'GMAFMK,RMTEQO'}
+- type: Button
+  properties: {text: button_1}
+  name: button_1
+  layout_properties: {grid_position: 'ILZYCR,PTRAFM'}
 is_package: true
