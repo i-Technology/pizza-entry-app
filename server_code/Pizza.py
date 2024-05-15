@@ -21,23 +21,36 @@ from EventzAnvilAPI import DS_Init, DS_Logger, LibrarianClient, SubscriberFactor
 #
 
 class Pizza(object):
-  def __init__(self,action,size,crust,toppings,price):
+  def __init__(self,action,size,crust,toppings,price,status):
     self.record_id  = ''
     self.action = action
     self.size = size
     self.crust = crust
     self.toppings = toppings
     self.price = price
+    self.status = status
     
-  def load_pizza(self,size,crust,toppings,price):
+  def load_pizza(self,size,crust,toppings,price,status):
     self.size = size
     self.crust = crust
     self.toppings = toppings
     self.price = price
+    self.status = status
+
     
   def make_tuple(self):
-    record_tuple = (size,crust,toppings,price)
-    return record_tuple
+    data = {
+        "account": self.account_no,
+        "size": self.size,
+        "crust": self.crust,
+        "toppings": self.toppings,
+        "price": self.price,
+        "status": self.status
+    }
+    json_string = json.dumps(data)
+    message_as_tuple = (json_string)
+    return message_as_tuple
+
   
   
   def submit_pizza(self,action):

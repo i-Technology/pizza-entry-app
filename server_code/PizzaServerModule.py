@@ -17,9 +17,9 @@ import anvil.server
 #   return 42
 #
 
-pizza_item = Pizza()
 
 @anvil.server.callable
-def save_pizza(action, size, crust, toppings, price):
-  
-  
+def publish_pizza(action, size, crust, toppings, price,status):
+  print(f'Publishing')
+  pizza = Pizza(action, size,crust,toppings,price,status)
+  pizza.submit_pizza(action)

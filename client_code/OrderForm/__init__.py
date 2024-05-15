@@ -20,7 +20,7 @@ class OrderForm(OrderFormTemplate):
     self.crust_price = 1.0
     self.toppings = 0 # Integer # of toppings selected now
     self.top_price = 0.1
-    self.price = 0.00
+    self.price1 = 0.00
     #self.item['account'] = 0
     
     self.account = 0  # Initialize the account variable
@@ -136,13 +136,18 @@ class OrderForm(OrderFormTemplate):
 
 
   def submit_click(self, **event_args):
-    """This method is called when the button is clicked"""
-    
-    new_row = app_tables.pizzas.add_row(size = self.pizza_size, crust = self.pizza_crust, toppings =self.top_list, price=self.price)
+    """This method is called when the SUBMIT button is clicked"""
+    status = 'Ordered'
+    new_row = app_tables.pizzas.add_row(size = self.pizza_size, crust = self.pizza_crust, toppings =self.top_list, price=self.price,status=status)
     l = list(self.repeating_panel_1.items) + [new_row]
     self.repeating_panel_1.items = l
+
+    
+     # Publish to RabbitMQ   
+      #price2=float(self.price1)
+    anvil.server.call('publish_pizza', 'New', self.account, self.size, self.crust, self.toppings, str(self.price1),status)
   
-  # Publish to RabbitMQ
+ 
     
     pass
 
