@@ -25,13 +25,22 @@ db_schema:
     client: full
     server: full
     columns:
+    - name: eventz_id
+      admin_ui: {width: 200}
+      type: string
     - name: size
+      admin_ui: {width: 200}
+      type: string
+    - name: status
       admin_ui: {width: 200}
       type: string
     - name: crust
       admin_ui: {width: 200}
       type: string
     - name: toppings
+      admin_ui: {width: 200}
+      type: string
+    - name: account
       admin_ui: {width: 200}
       type: string
     - name: price

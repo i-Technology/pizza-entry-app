@@ -3,6 +3,7 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
+from Pizza import Pizza
 
 # This is a server module. It runs on the Anvil server,
 # rather than in the user's browser.
@@ -19,7 +20,8 @@ import anvil.server
 
 
 @anvil.server.callable
-def publish_pizza(action, size, crust, toppings, price,status):
+def publish_pizza(action, account, eventz_id, size, crust, toppings, price,status):
   print(f'Publishing')
-  pizza = Pizza(action, size,crust,toppings,price,status)
+  print('258', price, status, account)
+  pizza = Pizza(action, eventz_id, account, size,crust,toppings,price,status)
   pizza.submit_pizza(action)

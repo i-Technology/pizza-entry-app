@@ -30,7 +30,7 @@ components:
     layout_properties: {grid_position: 'RJVUUH,JOIXRI'}
     data_bindings:
     - {property: text, code: 'self.item[''account'']', writeback: true}
-    event_bindings: {pressed_enter: account_entered}
+    event_bindings: {lost_focus: account_tb_lost_focus}
   - type: DropDown
     properties:
       role: null
@@ -124,6 +124,7 @@ components:
     properties: {role: outlined}
     name: price_tb2
     layout_properties: {grid_position: 'ZXBORZ,JXHOZZ'}
+    event_bindings: {pressed_enter: price_tb2_pressed_enter}
   - type: TextBox
     properties: {}
     name: pizza_list

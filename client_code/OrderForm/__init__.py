@@ -20,7 +20,7 @@ class OrderForm(OrderFormTemplate):
     self.crust_price = 1.0
     self.toppings = 0 # Integer # of toppings selected now
     self.top_price = 0.1
-    self.price1 = 0.00
+    self.price = 0.00
     #self.item['account'] = 0
     
     self.account = 0  # Initialize the account variable
@@ -78,16 +78,17 @@ class OrderForm(OrderFormTemplate):
     print('CP3', self.price)
     
     self.price_tb.text ='${:,.2f}'.format(self.price)
+    
     self.pizza_list_show()
     
   
-  def account_entered(self, **event_args):
-    """This method is called when the user presses Enter in this text box"""
-    self.account = self.item['account']  # 
-    #print(self.item['account'])
-    print(self.account)
-    self.pizza_list_show()
-    pass
+#   def account_entered(self, **event_args):
+#     """This method is called when the user presses Enter in this text box"""
+#     self.account = self.item['account']  # 
+#     #print(self.item['account'])
+#     print('892  ACCOUNT', self.account)
+#     self.pizza_list_show()
+#     pass
 
 
   def size_change(self, **event_args):
@@ -144,8 +145,17 @@ class OrderForm(OrderFormTemplate):
 
     
      # Publish to RabbitMQ   
-      #price2=float(self.price1)
-    anvil.server.call('publish_pizza', 'New', self.account, self.size, self.crust, self.toppings, str(self.price1),status)
+
+    print('1481', type(self.size), self.size)
+    selected_size = self.size.selected_value
+    selected_crust = self.crust.selected_value
+    status = 'Ordered'
+    print('1512',type(self.top_list), self.top_list, type(self.account), self.account)
+
+#     selected_size = self.size.selected_value
+#     selected_size = self.size.selected_value
+    eventz_id = ''   # Don't have one now, this is a new pizza. Will be assigned by Publish. New button
+    anvil.server.call('publish_pizza', 'New', self.account, eventz_id, selected_size, selected_crust, self.top_list, str(self.price), status)
   
  
     
@@ -230,6 +240,20 @@ class OrderForm(OrderFormTemplate):
     self.pizza_list.text =  self.account, self.pizza_size, self.pizza_crust, self.top_list
    
     pass
+
+  def price_tb2_pressed_enter(self, **event_args):
+    """This method is called when the user presses Enter in this text box"""
+    pass
+
+  def account_tb_lost_focus(self, **event_args):
+    """This method is called when the ACCOUNT TextBox loses focus"""
+    self.account = self.item['account']  # 
+    #print(self.item['account'])
+    print('2519  ACCOUNT', self.account)
+    self.pizza_list_show()
+    pass
+
+
 
 
 
