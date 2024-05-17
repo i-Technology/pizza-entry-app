@@ -1,3 +1,12 @@
+
+# ToDo: process the Send To Oven button at the end of this  file. Batch Publish all the pizzas in the list.
+# ToDo: Add Anvil Payment Method
+# ToDo: Add the Anvil Login method
+# ToDo: Document! User manual/video, plus Developer
+# ToDo: This uses  the Uplink code. Auto-launch if not runing,
+# ToDo: 
+
+
 from ._anvil_designer import OrderFormTemplate
 from anvil import *
 import anvil.users
@@ -251,6 +260,10 @@ class OrderForm(OrderFormTemplate):
     #print(self.item['account'])
     print('2519  ACCOUNT', self.account)
     self.pizza_list_show()
+    pass
+
+  def send_to_oven_click(self, **event_args):
+    """This method is called when SEND ORDER TO OVEN the button is clicked"""
     pass
 
 
