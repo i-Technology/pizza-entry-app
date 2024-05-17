@@ -29,7 +29,8 @@ class Pizza(object):
     self.size = size
     self.crust = crust
     self.toppings = toppings
-    self.price = price
+    self.toppings_list = [topping.strip() for topping in toppings.split(",")]
+    self.price = price    
     self.status = status
     self.publisher = Publisher()
     self.account=account
@@ -45,7 +46,7 @@ class Pizza(object):
     self.eventz_id = eventz_id
     
   def make_tuple(self):
-    record_tuple = (self.account,self.size, self.crust, self.toppings, self.price, self.status)
+    record_tuple = (self.account,self.size, self.crust, self.toppings_list, self.price, self.status)
     print('at 47 record_tuple', record_tuple,self.price)
     return record_tuple
   
