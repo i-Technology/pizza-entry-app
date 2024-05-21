@@ -16,8 +16,8 @@ class RowTemplate1(RowTemplate1Template):
   def link_1_click(self, **event_args):
     """This method is called when the TRASH link is clicked"""
     self.item.delete()
-    self.remove_from_parent()
-    print('Line 18 delete')
+    self.remove_from_parent()  # remove line from grid
+    print('Line 20a delete')
     pass
   
   def form_refreshing_data_bindings(self, **event_args):

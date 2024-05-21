@@ -148,12 +148,11 @@ class OrderForm(OrderFormTemplate):
   def submit_click(self, **event_args):
     """This method is called when the SUBMIT button is clicked"""
     status = 'Ordered'
-    new_row = app_tables.pizzas.add_row(size = self.pizza_size, crust = self.pizza_crust, toppings =self.top_list, price=self.price,status=status)
-    l = list(self.repeating_panel_1.items) + [new_row]
-    self.repeating_panel_1.items = l
-    
-    self.clear_form_all()
-    
+    new_row = app_tables.pizzas.add_row(size = self.pizza_size, crust = self.pizza_crust, toppings =self.top_list, price=self.price,account = self.account, status=status)
+    l = list(self.repeating_panel_1.items) + [new_row]  # put a new row in the table
+    self.repeating_panel_1.items = l  # put a new row in the data grid    
+    self.clear_form()  # Do not clear the account number
+    #2519
     pass
 
   def crust_change(self, **event_args):
@@ -250,19 +249,15 @@ class OrderForm(OrderFormTemplate):
 
   def send_to_oven_click(self, **event_args):
     """This method is called when SEND ORDER TO OVEN the button is clicked"""
+
+    # Here we need to publish all  the pizzas under this account.
+    pizzas = app_tables.pizzas.search()
+    
     # Publish to RabbitMQ   
-
-    print('1481', type(self.size), self.size)
-    selected_size = self.size.selected_value
-    selected_crust = self.crust.selected_value
-    status = 'Ordered'
-    print('1512',type(self.top_list), self.top_list, type(self.account), self.account)
-
-#     selected_size = self.size.selected_value
-#     selected_size = self.size.selected_value
-    eventz_id = ''   # Don't have one now, this is a new pizza. Will be assigned by Publish. New button
-    anvil.server.call('publish_pizza', 'New', self.account, eventz_id, selected_size, selected_crust, self.top_list, str(self.price), status)
-  
+    for pizza in pizzas:  
+      print('258a', pizza['account'])
+      anvil.server.call('publish_pizza', 'New', pizza['account'], pizza['eventz_id'], pizza['size'], pizza['crust'], pizza['toppings'], pizza['price'], pizza['status'])
+    self.clear_form_all()  # clear the form because all the pizzas under this account have been sent to the oven.
  
     pass
 
@@ -276,8 +271,19 @@ class OrderForm(OrderFormTemplate):
     self.olives_cb.checked = False
     self.mushrooms_cb.checked = False
     self.price_tb2.text = ''
-    self.pizza_list.text = ''    
+    self.pizza_list.text = '' 
+    pizzas = app_tables.pizzas.search()
+    for pizza in pizzas:   # clear the database table
+      pizza.delete()
+    rpi = self.repeating_panel_1.items  # get the rows in the data grid   
+    for row in rpi:
+      row.delete 
+  
+    # self.data_grid_1.items = []   # clear the data grid items
 
+    print('284a')
+
+  
   def clear_form(self):
     
     """This method is called when we need to CLEAR THE FORM EXCEPT LEAVE THE ACCOUNT NUMBER FOR NEXT PIZZA"""
