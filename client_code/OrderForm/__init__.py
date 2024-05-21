@@ -151,22 +151,8 @@ class OrderForm(OrderFormTemplate):
     new_row = app_tables.pizzas.add_row(size = self.pizza_size, crust = self.pizza_crust, toppings =self.top_list, price=self.price,status=status)
     l = list(self.repeating_panel_1.items) + [new_row]
     self.repeating_panel_1.items = l
-
     
-     # Publish to RabbitMQ   
-
-    print('1481', type(self.size), self.size)
-    selected_size = self.size.selected_value
-    selected_crust = self.crust.selected_value
-    status = 'Ordered'
-    print('1512',type(self.top_list), self.top_list, type(self.account), self.account)
-
-#     selected_size = self.size.selected_value
-#     selected_size = self.size.selected_value
-    eventz_id = ''   # Don't have one now, this is a new pizza. Will be assigned by Publish. New button
-    anvil.server.call('publish_pizza', 'New', self.account, eventz_id, selected_size, selected_crust, self.top_list, str(self.price), status)
-  
- 
+    self.clear_form_all()
     
     pass
 
@@ -264,7 +250,49 @@ class OrderForm(OrderFormTemplate):
 
   def send_to_oven_click(self, **event_args):
     """This method is called when SEND ORDER TO OVEN the button is clicked"""
+    # Publish to RabbitMQ   
+
+    print('1481', type(self.size), self.size)
+    selected_size = self.size.selected_value
+    selected_crust = self.crust.selected_value
+    status = 'Ordered'
+    print('1512',type(self.top_list), self.top_list, type(self.account), self.account)
+
+#     selected_size = self.size.selected_value
+#     selected_size = self.size.selected_value
+    eventz_id = ''   # Don't have one now, this is a new pizza. Will be assigned by Publish. New button
+    anvil.server.call('publish_pizza', 'New', self.account, eventz_id, selected_size, selected_crust, self.top_list, str(self.price), status)
+  
+ 
     pass
+
+  def clear_form_all(self):
+    
+    """This method is called when we need to CLEAR THE FORM FOR NEXT ORDER"""
+    self.account_tb.text = ''
+    self.size.selected_value = None
+    self.crust.selected_value = None
+    self.pepperoni_cb.checked = False
+    self.olives_cb.checked = False
+    self.mushrooms_cb.checked = False
+    self.price_tb2.text = ''
+    self.pizza_list.text = ''    
+
+  def clear_form(self):
+    
+    """This method is called when we need to CLEAR THE FORM EXCEPT LEAVE THE ACCOUNT NUMBER FOR NEXT PIZZA"""
+    # self.account_tb.text = ''
+    self.size.selected_value = None
+    self.crust.selected_value = None
+    self.pepperoni_cb.checked = False
+    self.olives_cb.checked = False
+    self.mushrooms_cb.checked = False
+    self.price_tb2.text = ''
+    self.pizza_list.text = ''    
+    
+  
+
+    
 
 
 
