@@ -151,8 +151,11 @@ class OrderForm(OrderFormTemplate):
     new_row = app_tables.pizzas.add_row(size = self.pizza_size, crust = self.pizza_crust, toppings =self.top_list, price=self.price,account = self.account, status=status)
     l = list(self.repeating_panel_1.items) + [new_row]  # put a new row in the table
     self.repeating_panel_1.items = l  # put a new row in the data grid    
+    self.data_grid_1.items = l
+    # Refresh - new stuff in the panel.
+    #self.refresh_data()
     self.clear_form()  # Do not clear the account number
-    #2519
+    
     pass
 
   def crust_change(self, **event_args):
@@ -265,8 +268,8 @@ class OrderForm(OrderFormTemplate):
     
     """This method is called when we need to CLEAR THE FORM FOR NEXT ORDER"""
     self.account_tb.text = ''
-    self.size.selected_value = None
-    self.crust.selected_value = None
+    self.size.selected_value = 'Small'
+    self.crust.selected_value = 'Thin'
     self.pepperoni_cb.checked = False
     self.olives_cb.checked = False
     self.mushrooms_cb.checked = False
@@ -276,7 +279,7 @@ class OrderForm(OrderFormTemplate):
     for pizza in pizzas:   # clear the database table
       pizza.delete()
     self.data_grid_1.clear()
-    
+        
     print('280a')
 
   
@@ -284,8 +287,8 @@ class OrderForm(OrderFormTemplate):
     
     """This method is called when we need to CLEAR THE FORM EXCEPT LEAVE THE ACCOUNT NUMBER FOR NEXT PIZZA"""
     # self.account_tb.text = ''
-    self.size.selected_value = None
-    self.crust.selected_value = None
+    self.size.selected_value = 'Small'
+    self.crust.selected_value = 'Thin'
     self.pepperoni_cb.checked = False
     self.olives_cb.checked = False
     self.mushrooms_cb.checked = False
