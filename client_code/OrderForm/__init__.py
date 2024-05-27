@@ -275,15 +275,9 @@ class OrderForm(OrderFormTemplate):
     pizzas = app_tables.pizzas.search()
     for pizza in pizzas:   # clear the database table
       pizza.delete()
-    # rpi = self.repeating_panel_1.items  # get the rows in the data grid   
-    # for row in rpi:
-    #   row.delete 
+    self.data_grid_1.clear()
     
-  
-    #self.data_grid_1.items = []   # clear the data grid items
-    #self.data_grid_1.refresh()
-    self.data_grid_1.delete_all_rows()
-    print('284a')
+    print('280a')
 
   
   def clear_form(self):
