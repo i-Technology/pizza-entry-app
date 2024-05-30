@@ -260,8 +260,8 @@ class OrderForm(OrderFormTemplate):
     for pizza in pizzas:  
       print('258a', pizza['account'])
       anvil.server.call('publish_pizza', 'New', pizza['account'], pizza['eventz_id'], pizza['size'], pizza['crust'], pizza['toppings'], pizza['price'], pizza['status'])
+    # 
     self.clear_form_all()  # clear the form because all the pizzas under this account have been sent to the oven.
- 
     pass
 
   def clear_form_all(self):
@@ -279,6 +279,7 @@ class OrderForm(OrderFormTemplate):
     for pizza in pizzas:   # clear the database table
       pizza.delete()
     self.data_grid_1.clear()
+    self.repeating_panel_1.items = app_tables.pizzas.search() 
 
   
   def clear_form(self):
