@@ -279,8 +279,6 @@ class OrderForm(OrderFormTemplate):
     for pizza in pizzas:   # clear the database table
       pizza.delete()
     self.data_grid_1.clear()
-        
-    print('280a')
 
   
   def clear_form(self):
