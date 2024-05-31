@@ -148,10 +148,16 @@ class OrderForm(OrderFormTemplate):
   def submit_click(self, **event_args):
     """This method is called when the SUBMIT button is clicked"""
     status = 'Ordered'
+    self.
     new_row = app_tables.pizzas.add_row(size = self.pizza_size, crust = self.pizza_crust, toppings =self.top_list, price=self.price,account = self.account, status=status)
     l = list(self.repeating_panel_1.items) + [new_row]  # put a new row in the table
+    print(f'List for repeating panel: {l}')
     self.repeating_panel_1.items = l  # put a new row in the data grid    
-    self.data_grid_1.items = l
+    # self.data_grid_1.items = l
+    self.data_grid_1.add_component(self.repeating_panel_1)
+
+    print(f'data_grid_1.items: {self.data_grid_1.items}')
+    self.repeating_panel_1.items = app_tables.pizzas.search() 
     # Refresh - new stuff in the panel.
     #self.refresh_data()
     self.clear_form()  # Do not clear the account number
@@ -278,7 +284,14 @@ class OrderForm(OrderFormTemplate):
     pizzas = app_tables.pizzas.search()
     for pizza in pizzas:   # clear the database table
       pizza.delete()
+
+    columns = self.data_grid_1.columns
+            
     self.data_grid_1.clear()
+    
+    # Make the change live
+    self.data_grid_1.columns = columns
+
     self.repeating_panel_1.items = app_tables.pizzas.search() 
 
   
