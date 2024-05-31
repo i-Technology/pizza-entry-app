@@ -102,6 +102,7 @@ class OrderForm(OrderFormTemplate):
 
   def size_change(self, **event_args):
     """This method is called when a SIZE is selected"""
+    print(f'size_change self: {self}')
     print(self.item['size'])
     if self.item['size'] == 'Small':
       self.pizza_size = 'Small'
@@ -148,7 +149,10 @@ class OrderForm(OrderFormTemplate):
   def submit_click(self, **event_args):
     """This method is called when the SUBMIT button is clicked"""
     status = 'Ordered'
-    self.
+    print(f"Selected Crust: {self.item['crust']}")
+    print(f"Selected Size: {self.size.selected_value}")
+    # self.crust_change()
+    # self.size_change()
     new_row = app_tables.pizzas.add_row(size = self.pizza_size, crust = self.pizza_crust, toppings =self.top_list, price=self.price,account = self.account, status=status)
     l = list(self.repeating_panel_1.items) + [new_row]  # put a new row in the table
     print(f'List for repeating panel: {l}')
@@ -168,7 +172,7 @@ class OrderForm(OrderFormTemplate):
     """This method is called when a CRUST item is selected"""
     #global crust_price, size_price
     crust = self.item['crust']
-    print(crust)
+    print(f'crust: {crust}')
     if self.item['crust'] == 'Thin':
       crust_price = 1.0
     if self.item['crust'] == 'Crispy':
