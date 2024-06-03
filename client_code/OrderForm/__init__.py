@@ -149,8 +149,11 @@ class OrderForm(OrderFormTemplate):
   def submit_click(self, **event_args):
     """This method is called when the SUBMIT button is clicked"""
     status = 'Ordered'
-    print(f"Selected Crust: {self.item['crust']}")
-    print(f"Selected Size: {self.size.selected_value}")
+    self.pizza_size = self.size.selected_value
+    self.pizza_crust = self.crust.selected_value
+    print(f'Size: {self.pizza_size}')
+    print(f"Crust: {self.pizza_crust}")
+    # print(f"Selected Size: {self.size.selected_value}")
     # self.crust_change()
     # self.size_change()
     new_row = app_tables.pizzas.add_row(size = self.pizza_size, crust = self.pizza_crust, toppings =self.top_list, price=self.price,account = self.account, status=status)
@@ -158,9 +161,8 @@ class OrderForm(OrderFormTemplate):
     print(f'List for repeating panel: {l}')
     self.repeating_panel_1.items = l  # put a new row in the data grid    
     # self.data_grid_1.items = l
-    self.data_grid_1.add_component(self.repeating_panel_1)
-
-    print(f'data_grid_1.items: {self.data_grid_1.items}')
+    if self.repeating_panel_1 not in self.data_grid_1.get_components():
+      self.data_grid_1.add_component(self.repeating_panel_1)     # Put a repeating panel in if none
     self.repeating_panel_1.items = app_tables.pizzas.search() 
     # Refresh - new stuff in the panel.
     #self.refresh_data()
